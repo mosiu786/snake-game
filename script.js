@@ -2,22 +2,18 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 // تنظیمات بازی
-const box = 20; // اندازه هر خانه
-const canvasSize = 400; // اندازه کانواس
-let snake = [{ x: box * 5, y: box * 5 }]; // مار اولیه
-let direction = 'RIGHT'; // جهت پیش‌فرض
-let food = generateFood(); // مکان غذا
+const box = 20;
+const canvasSize = 400;
+let snake = [{ x: box * 5, y: box * 5 }];
+let direction = 'RIGHT';
+let food = generateFood();
 let score = 0;
 
-// توابع اصلی بازی
-
-// تولید مکان تصادفی برای غذا
-function generateFood() {
-    return {
-        x: Math.floor(Math.random() * (canvasSize / box)) * box,
-        y: Math.floor(Math.random() * (canvasSize / box)) * box,
-    };
-}
+// شروع بازی
+document.getElementById('startButton').addEventListener('click', () => {
+    document.getElementById('start-screen').style.display = 'none'; // مخفی کردن صفحه شروع
+    setInterval(gameLoop, 100); // شروع حلقه بازی
+});
 
 // رسم غذا
 function drawFood() {
@@ -27,8 +23,16 @@ function drawFood() {
     ctx.shadowColor = 'rgba(255, 0, 0, 0.8)';
     ctx.shadowBlur = 10;
     ctx.fill();
-    ctx.shadowBlur = 0; // ریست سایه
+    ctx.shadowBlur = 0; // بازنشانی سایه
     ctx.closePath();
+}
+
+// تولید مکان تصادفی برای غذا
+function generateFood() {
+    return {
+        x: Math.floor(Math.random() * (canvasSize / box)) * box,
+        y: Math.floor(Math.random() * (canvasSize / box)) * box,
+    };
 }
 
 // رسم مار
@@ -41,7 +45,7 @@ function drawSnake() {
         ctx.fillStyle = gradient;
         ctx.fillRect(segment.x, segment.y, box, box);
 
-        // اضافه کردن حاشیه به هر بخش مار
+        // اضافه کردن حاشیه برای هر قطعه
         ctx.strokeStyle = 'darkgreen';
         ctx.strokeRect(segment.x, segment.y, box, box);
     });
@@ -57,49 +61,15 @@ function moveSnake() {
 
     snake.unshift(head);
 
-    // اگر مار غذا خورد
+    // برخورد با غذا
     if (head.x === food.x && head.y === food.y) {
-        score++;
-        food = generateFood(); // تولید غذا جدید
+        food = generateFood();
     } else {
-        snake.pop(); // حذف انتهای مار
+        snake.pop();
     }
 }
 
-// بررسی برخوردها
-function checkCollision() {
-    const head = snake[0];
-
-    // برخورد با دیوارها
-    if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
-        return true;
-    }
-
-    // برخورد با خودش
-    for (let i = 1; i < snake.length; i++) {
-        if (head.x === snake[i].x && head.y === snake[i].y) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-// حلقه اصلی بازی
-function gameLoop() {
-    if (checkCollision()) {
-        alert(`Game Over! Your score: ${score}`);
-        document.location.reload();
-        return;
-    }
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // پاک کردن کانواس
-    drawFood(); // رسم غذا
-    moveSnake(); // حرکت مار
-    drawSnake(); // رسم مار
-}
-
-// تنظیم جهت حرکت مار با کلیدها
+// کنترل جهت حرکت
 document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowUp' && direction !== 'DOWN') direction = 'UP';
     if (event.key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
@@ -107,8 +77,23 @@ document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
 });
 
-// دکمه شروع بازی
-document.getElementById('startButton').addEventListener('click', () => {
-    document.getElementById('start-screen').style.display = 'none'; // مخفی کردن صفحه شروع
-    setInterval(gameLoop, 100); // شروع حلقه بازی
+document.getElementById('up').addEventListener('click', () => {
+    if (direction !== 'DOWN') direction = 'UP';
 });
+document.getElementById('down').addEventListener('click', () => {
+    if (direction !== 'UP') direction = 'DOWN';
+});
+document.getElementById('left').addEventListener('click', () => {
+    if (direction !== 'RIGHT') direction = 'LEFT';
+});
+document.getElementById('right').addEventListener('click', () => {
+    if (direction !== 'LEFT') direction = 'RIGHT';
+});
+
+// حلقه بازی
+function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawFood();
+    moveSnake();
+    drawSnake();
+}
