@@ -31,52 +31,6 @@
     </div>
 
     <!-- جاوا اسکریپت -->
-    <script>
-        // اضافه کردن رویداد کلیک برای شروع بازی
-        document.getElementById('startButton').addEventListener('click', () => {
-            document.getElementById('start-screen').style.display = 'none'; // پنهان کردن صفحه شروع
-            setInterval(gameLoop, 80); // شروع حلقه بازی
-        });
-
-        // افکت لرزش برای برخوردها
-        function shakeCanvas() {
-            const canvas = document.getElementById('gameCanvas');
-            const offset = 5;
-            canvas.style.position = 'relative';
-            canvas.animate(
-                [
-                    { transform: `translate(${offset}px, ${offset}px)` },
-                    { transform: `translate(-${offset}px, -${offset}px)` },
-                    { transform: 'translate(0, 0)' }
-                ],
-                {
-                    duration: 100,
-                    iterations: 3,
-                }
-            );
-        }
-
-        // بررسی برخوردها
-        function checkCollision() {
-            const head = snake[0];
-
-            // برخورد با دیوار
-            if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
-                shakeCanvas();
-                return true;
-            }
-
-            // برخورد با بدن خود مار
-            for (let i = 1; i < snake.length; i++) {
-                if (head.x === snake[i].x && head.y === snake[i].y) {
-                    shakeCanvas();
-                    return true;
-                }
-            }
-
-            return false;
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
