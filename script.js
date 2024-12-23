@@ -1,65 +1,86 @@
-// Draw food with glow effect
-function drawFood() {
-    ctx.beginPath();
-    ctx.arc(food.x + box / 2, food.y + box / 2, box / 2, 0, 2 * Math.PI);
-    ctx.fillStyle = 'red';
-    ctx.shadowColor = 'rgba(255, 0, 0, 0.8)';
-    ctx.shadowBlur = 10;
-    ctx.fill();
-    ctx.shadowBlur = 0; // Reset shadow
-    ctx.closePath();
+/* برای مرکز کردن تمام محتوا در صفحه */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url('background-image.jpg'); /* مسیر تصویر زمینه */
+    background-size: cover;
+    background-position: center;
+    animation: moveBackground 30s linear infinite;
+    font-family: Arial, sans-serif;
 }
 
-// Draw snake with gradient colors
-function drawSnake() {
-    snake.forEach((segment, index) => {
-        const gradient = ctx.createLinearGradient(segment.x, segment.y, segment.x + box, segment.y + box);
-        gradient.addColorStop(0, index % 2 === 0 ? 'green' : 'lime');
-        gradient.addColorStop(1, 'yellow');
-
-        ctx.fillStyle = gradient;
-        ctx.fillRect(segment.x, segment.y, box, box);
-
-        // Add border for each segment
-        ctx.strokeStyle = 'darkgreen';
-        ctx.strokeRect(segment.x, segment.y, box, box);
-    });
+/* استایل برای صفحه شروع */
+#start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
 }
 
-// Vibration effect for collision
-function shakeCanvas() {
-    const offset = 5;
-    canvas.style.position = 'relative';
-    canvas.animate(
-        [
-            { transform: `translate(${offset}px, ${offset}px)` },
-            { transform: `translate(-${offset}px, -${offset}px)` },
-            { transform: 'translate(0, 0)' }
-        ],
-        {
-            duration: 100,
-            iterations: 3
-        }
-    );
+#startButton {
+    padding: 15px 30px;
+    font-size: 20px;
+    background: linear-gradient(145deg, #4CAF50, #3E8E41);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-// Check for collisions
-function checkCollision() {
-    const head = snake[0];
+#startButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
 
-    // Wall collision
-    if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
-        shakeCanvas(); // Shake effect
-        return true;
-    }
+/* استایل کانواس */
+canvas {
+    border: 2px solid #333;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-top: 20px;
+}
 
-    // Self collision
-    for (let i = 1; i < snake.length; i++) {
-        if (head.x === snake[i].x && head.y === snake[i].y) {
-            shakeCanvas(); // Shake effect
-            return true;
-        }
-    }
+/* استایل کنترل‌ها */
+#controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
 
-    return false;
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+#controls button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #4CAF50, #3E8E41);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#controls button:hover {
+    transform: scale(1.1);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5);
 }
