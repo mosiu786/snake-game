@@ -111,12 +111,26 @@ function gameLoop() {
     drawSnake();
 }
 
-// Change direction
+// Change direction using keyboard
 document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowUp' && direction !== 'DOWN') direction = 'UP';
     if (event.key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
     if (event.key === 'ArrowLeft' && direction !== 'RIGHT') direction = 'LEFT';
     if (event.key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
+});
+
+// Change direction using buttons
+document.getElementById('up').addEventListener('click', () => {
+    if (direction !== 'DOWN') direction = 'UP';
+});
+document.getElementById('down').addEventListener('click', () => {
+    if (direction !== 'UP') direction = 'DOWN';
+});
+document.getElementById('left').addEventListener('click', () => {
+    if (direction !== 'RIGHT') direction = 'LEFT';
+});
+document.getElementById('right').addEventListener('click', () => {
+    if (direction !== 'LEFT') direction = 'RIGHT';
 });
 
 // Start game
