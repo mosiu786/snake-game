@@ -72,7 +72,7 @@ function moveSnake() {
 
         // اگر متن کامل شد
         if (collectedText === goalText) {
-            endGame("عشق مسلم برنده شدی!");
+            endGame("آفرین نیم وجبی اینم جایزت اممممماچ 💋");
         }
     } else {
         snake.pop();
@@ -125,7 +125,10 @@ function checkCollision() {
 function endGame(message) {
     document.getElementById('game-over-message').innerText = message;
     document.getElementById('game-over-screen').style.display = 'flex';
-    clearInterval(gameLoop);
+
+    // نمایش کنفتی
+    confetti.start();
+    setTimeout(() => confetti.stop(), 5000);
 }
 
 // حلقه بازی
