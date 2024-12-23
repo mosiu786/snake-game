@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>🫵🏽تو همیشه بازنده ای🫵🏽</h1>
-    
-    <!-- دکمه استارت برای شروع بازی -->
-    <button id="startButton">مردی برنده شو</button>
-    
+    <div id="start-screen">
+        <button id="startButton">مردی برنده شو</button>
+    </div>
+    <h1>Snake Game</h1>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
-
     <div id="controls">
         <div class="row">
             <button id="up">⬆</button>
@@ -24,7 +22,52 @@
             <button id="right">➡</button>
         </div>
     </div>
-    
     <script src="script.js"></script>
+    <script>
+        // Add functionality for the start button
+        document.getElementById('startButton').addEventListener('click', () => {
+            document.getElementById('start-screen').style.display = 'none'; // Hide start screen
+            setInterval(gameLoop, 80); // Start the game loop
+        });
+
+        // Add shake canvas effect for collisions
+        function shakeCanvas() {
+            const canvas = document.getElementById('gameCanvas');
+            const offset = 5;
+            canvas.style.position = 'relative';
+            canvas.animate(
+                [
+                    { transform: `translate(${offset}px, ${offset}px)` },
+                    { transform: `translate(-${offset}px, -${offset}px)` },
+                    { transform: 'translate(0, 0)' }
+                ],
+                {
+                    duration: 100,
+                    iterations: 3
+                }
+            );
+        }
+
+        // Adjust collision logic to use shakeCanvas
+        function checkCollision() {
+            const head = snake[0];
+
+            // Wall collision
+            if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
+                shakeCanvas(); // Shake effect
+                return true;
+            }
+
+            // Self collision
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    shakeCanvas(); // Shake effect
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    </script>
 </body>
 </html>
