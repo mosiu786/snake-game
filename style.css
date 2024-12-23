@@ -5,7 +5,7 @@ body {
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    background-image: url('background-image.jpg'); /* مسیر صحیح تصویر */
+    background-image: url('background-image.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -42,10 +42,6 @@ body {
 #game-over-screen button:hover {
     background-color: #45a049;
     transform: scale(1.1);
-}
-
-h1 {
-    color: #333;
 }
 
 canvas {
