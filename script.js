@@ -9,6 +9,10 @@ let direction = 'RIGHT';
 let food = generateFood();
 let score = 0;
 
+// متن هدف
+const goalText = "UNIQUE MUSLIM";
+let collectedText = "";
+
 // شروع بازی
 document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('start-screen').style.display = 'none'; // مخفی کردن صفحه شروع
@@ -63,7 +67,13 @@ function moveSnake() {
 
     // برخورد با غذا
     if (head.x === food.x && head.y === food.y) {
+        collectedText += goalText[collectedText.length];
         food = generateFood();
+
+        // اگر متن کامل شد
+        if (collectedText === goalText) {
+            endGame("عشق مسلم برنده شدی!");
+        }
     } else {
         snake.pop();
     }
@@ -90,10 +100,44 @@ document.getElementById('right').addEventListener('click', () => {
     if (direction !== 'LEFT') direction = 'RIGHT';
 });
 
+// چک کردن برخورد با دیواره
+function checkCollision() {
+    const head = snake[0];
+
+    // برخورد با دیواره
+    if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
+        endGame("باختی! مار با دیوار برخورد کرد.");
+        return true;
+    }
+
+    // برخورد با خودش
+    for (let i = 1; i < snake.length; i++) {
+        if (head.x === snake[i].x && head.y === snake[i].y) {
+            endGame("باختی! مار به خودش برخورد کرد.");
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// پایان بازی
+function endGame(message) {
+    document.getElementById('game-over-message').innerText = message;
+    document.getElementById('game-over-screen').style.display = 'flex';
+    clearInterval(gameLoop);
+}
+
 // حلقه بازی
 function gameLoop() {
+    if (checkCollision()) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawFood();
     moveSnake();
     drawSnake();
+
+    // نمایش متن
+    ctx.fillStyle = "black";
+    ctx.font = "18px Arial";
+    ctx.fillText("متن: " + collectedText, 10, 20);
 }
