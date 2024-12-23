@@ -5,6 +5,19 @@ body {
     justify-content: center;
     min-height: 100vh;
     margin: 0;
+    background-image: url('Screenshot_۲۰۲۴_۱۲_۲۳_۱۳_۱۸_۳۴_۹۸۶_com_facebook_katana_edit.jpg'); /* لینک یا نام فایل عکس */
+    background-size: cover; /* عکس تمام صفحه را پر می‌کند */
+    background-position: center; /* موقعیت عکس */
+    background-repeat: no-repeat; /* از تکرار عکس جلوگیری می‌کند */
+    font-family: Arial, sans-serif;
+}
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
     background-color: #f0f0f0;
     font-family: Arial, sans-serif;
 }
