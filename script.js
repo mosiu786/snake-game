@@ -8,6 +8,7 @@ let snake = [{ x: box * 5, y: box * 5 }];
 let direction = 'RIGHT';
 let food = generateFood();
 let score = 0;
+let gameInterval; // برای کنترل حلقه بازی
 
 // متن هدف
 const goalText = "UNIQUE MUSLIM";
@@ -16,7 +17,7 @@ let collectedText = "";
 // شروع بازی
 document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('start-screen').style.display = 'none'; // مخفی کردن صفحه شروع
-    setInterval(gameLoop, 100); // شروع حلقه بازی
+    gameInterval = setInterval(gameLoop, 100); // شروع حلقه بازی
 });
 
 // رسم غذا
@@ -123,6 +124,7 @@ function checkCollision() {
 
 // پایان بازی
 function endGame(message) {
+    clearInterval(gameInterval); // توقف حلقه بازی
     document.getElementById('game-over-message').innerText = message;
     document.getElementById('game-over-screen').style.display = 'flex';
 
