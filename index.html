@@ -7,18 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- صفحه شروع بازی -->
     <div id="start-screen">
         <button id="startButton">مردی برنده شو</button>
     </div>
-
-    <!-- عنوان بازی -->
     <h1>Snake Game</h1>
-
-    <!-- کانواس بازی -->
     <canvas id="gameCanvas" width="400" height="400"></canvas>
-
-    <!-- دکمه‌های کنترل -->
     <div id="controls">
         <div class="row">
             <button id="up">⬆</button>
@@ -29,8 +22,10 @@
             <button id="right">➡</button>
         </div>
     </div>
-
-    <!-- جاوا اسکریپت -->
+    <div id="game-over-screen" style="display: none;">
+        <h2 id="game-over-message"></h2>
+        <button onclick="window.location.reload()">بازی دوباره</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
