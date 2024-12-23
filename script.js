@@ -67,10 +67,10 @@ function updateDisplayedText() {
         displayedText += sequence[displayedText.length];
     }
 
-    // End game when "MUSLIM" is complete
-    if (displayedText.trim() === "MUSLIM") {
+    // End game when "UNIQUE MUSLIM" is complete
+    if (displayedText === "UNIQUE MUSLIM") {
         setTimeout(() => {
-            alert("مبارک باشه برنده شدی! عشق مسلم ❤️");
+            alert("مبارک باشه عشق مسلم! تو برنده شدی ❤️");
             document.location.reload();
         }, 100); // Delay for better user experience
     }
