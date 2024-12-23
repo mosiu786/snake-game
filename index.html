@@ -7,11 +7,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- صفحه شروع بازی -->
     <div id="start-screen">
         <button id="startButton">مردی برنده شو</button>
     </div>
+
+    <!-- عنوان بازی -->
     <h1>Snake Game</h1>
+
+    <!-- کانواس بازی -->
     <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+    <!-- دکمه‌های کنترل -->
     <div id="controls">
         <div class="row">
             <button id="up">⬆</button>
@@ -22,15 +29,16 @@
             <button id="right">➡</button>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- جاوا اسکریپت -->
     <script>
-        // Add functionality for the start button
+        // اضافه کردن رویداد کلیک برای شروع بازی
         document.getElementById('startButton').addEventListener('click', () => {
-            document.getElementById('start-screen').style.display = 'none'; // Hide start screen
-            setInterval(gameLoop, 80); // Start the game loop
+            document.getElementById('start-screen').style.display = 'none'; // پنهان کردن صفحه شروع
+            setInterval(gameLoop, 80); // شروع حلقه بازی
         });
 
-        // Add shake canvas effect for collisions
+        // افکت لرزش برای برخوردها
         function shakeCanvas() {
             const canvas = document.getElementById('gameCanvas');
             const offset = 5;
@@ -43,25 +51,25 @@
                 ],
                 {
                     duration: 100,
-                    iterations: 3
+                    iterations: 3,
                 }
             );
         }
 
-        // Adjust collision logic to use shakeCanvas
+        // بررسی برخوردها
         function checkCollision() {
             const head = snake[0];
 
-            // Wall collision
+            // برخورد با دیوار
             if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
-                shakeCanvas(); // Shake effect
+                shakeCanvas();
                 return true;
             }
 
-            // Self collision
+            // برخورد با بدن خود مار
             for (let i = 1; i < snake.length; i++) {
                 if (head.x === snake[i].x && head.y === snake[i].y) {
-                    shakeCanvas(); // Shake effect
+                    shakeCanvas();
                     return true;
                 }
             }
@@ -69,5 +77,6 @@
             return false;
         }
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
