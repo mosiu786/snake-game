@@ -11,6 +11,15 @@ let score = 0;
 let displayedText = ""; // For displaying U, N, I, Q, U, E and MUSLIM
 const sequence = "UNIQUE MUSLIM"; // Sequence of characters and spaces
 
+// Load background image
+const backgroundImage = new Image();
+backgroundImage.src = 'Screenshot_۲۰۲۴_۱۲_۲۳_۱۳_۱۸_۳۴_۹۸۶_com_facebook_katana_edit.jpg'; // مسیر فایل
+
+// Draw background
+function drawBackground() {
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+}
+
 // Draw food
 function drawFood() {
     ctx.fillStyle = 'red';
@@ -105,6 +114,7 @@ function gameLoop() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    drawBackground(); // Draw the background image
     drawText(); // Draw the displayed text
     drawFood();
     moveSnake();
