@@ -133,5 +133,8 @@ document.getElementById('right').addEventListener('click', () => {
     if (direction !== 'LEFT') direction = 'RIGHT';
 });
 
-// Start game
-setInterval(gameLoop, 80);
+// Start game on button click
+document.getElementById('startButton').addEventListener('click', () => {
+    document.getElementById('startButton').style.display = 'none'; // Hide the start button
+    setInterval(gameLoop, 80); // Start the game loop
+});
