@@ -134,4 +134,4 @@ document.getElementById('right').addEventListener('click', () => {
 });
 
 // Start game
-setInterval(gameLoop, 100);
+setInterval(gameLoop, 80);
