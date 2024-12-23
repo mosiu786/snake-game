@@ -17,7 +17,7 @@ let collectedText = "";
 // شروع بازی
 document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('start-screen').style.display = 'none'; // مخفی کردن صفحه شروع
-    gameInterval = setInterval(gameLoop, 500); // شروع حلقه بازی
+    gameInterval = setInterval(gameLoop, 2000); // شروع حلقه بازی
 });
 
 // رسم غذا
